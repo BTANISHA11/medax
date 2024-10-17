@@ -9,7 +9,7 @@ const PriorAuthorizationForm = () => {
         insurancePlan: '',
         dateOfService: '',
         diagnosisCode: '',
-        doctorNotes: '', // Ensure this field is included
+        doctorsNotes: '', // Ensure this field is included
     });
 
     const [errors, setErrors] = useState({});
@@ -23,11 +23,14 @@ const PriorAuthorizationForm = () => {
     const validateForm = () => {
         const newErrors = {};
         if (!formData.patientId) newErrors.patientId = 'Patient ID is required.';
+        else if (!/^[0-9a-fA-F]{24}$/.test(formData.patientId)) newErrors.patientId = 'Invalid Patient ID format.';
+
         if (!formData.treatment) newErrors.treatment = 'Treatment type is required.';
         if (!formData.insurancePlan) newErrors.insurancePlan = 'Insurance plan is required.';
         if (!formData.dateOfService) newErrors.dateOfService = 'Date of service is required.';
         if (!formData.diagnosisCode) newErrors.diagnosisCode = 'Diagnosis code is required.';
-        if (!formData.doctorNotes) newErrors.doctorNotes = 'Doctor\'s notes are required.'; // Validation for doctorsNotes
+        if (!formData.doctorNotes) newErrors.doctorNotes = 'Doctor\'s notes are required.';
+
         return newErrors;
     };
 
@@ -53,7 +56,7 @@ const PriorAuthorizationForm = () => {
                 insurancePlan: '',
                 dateOfService: '',
                 diagnosisCode: '',
-                doctorNotes: '',
+                doctorsNotes: '',
             });
             setErrors({});
             alert("Prior Authorization Request Submitted Successfully!");
@@ -70,6 +73,7 @@ const PriorAuthorizationForm = () => {
                 <h2 className="text-2xl font-semibold mb-6">Prior Authorization Request</h2>
                 <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     {submissionError && <p className="text-red-500 text-xs italic">{submissionError}</p>}
+                    
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="patientId">
                             Patient ID
@@ -84,6 +88,7 @@ const PriorAuthorizationForm = () => {
                         />
                         {errors.patientId && <p className="text-red-500 text-xs italic">{errors.patientId}</p>}
                     </div>
+
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="treatment">
                             Treatment
@@ -96,8 +101,9 @@ const PriorAuthorizationForm = () => {
                             placeholder="Enter Treatment Type"
                             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.treatment ? 'border-red-500' : ''}`}
                         />
-                        {errors.treatment && <p className="text-red-500 text-xs italic">{errors.treatment}</p>}
+                        {errors.treatment && <p className="text-red-500 text-xs italic">{errors .treatment}</p>}
                     </div>
+
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="insurancePlan">
                             Insurance Plan
@@ -112,6 +118,7 @@ const PriorAuthorizationForm = () => {
                         />
                         {errors.insurancePlan && <p className="text-red-500 text-xs italic">{errors.insurancePlan}</p>}
                     </div>
+
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="dateOfService">
                             Date of Service
@@ -121,10 +128,12 @@ const PriorAuthorizationForm = () => {
                             name="dateOfService"
                             onChange={handleChange}
                             value={formData.dateOfService}
+                            placeholder="Enter Date of Service"
                             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.dateOfService ? 'border-red-500' : ''}`}
                         />
                         {errors.dateOfService && <p className="text-red-500 text-xs italic">{errors.dateOfService}</p>}
                     </div>
+
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="diagnosisCode">
                             Diagnosis Code
@@ -139,28 +148,27 @@ const PriorAuthorizationForm = () => {
                         />
                         {errors.diagnosisCode && <p className="text-red-500 text-xs italic">{errors.diagnosisCode}</p>}
                     </div>
+
                     <div className="mb-4">
-                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="doctorNotes">
+                        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="doctorsNotes">
                             Doctor's Notes
                         </label>
                         <textarea
-                            name="doctorNotes"
+                            name="doctorsNotes"
                             onChange={handleChange}
-                            value={formData.doctorNotes}
+                            value={formData.doctorsNotes}
                             placeholder="Enter Doctor's Notes"
-                            rows="4"
-                            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.doctorNotes ? 'border-red-500' : ''}`}
+                            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.doctorsNotes ? 'border-red-500' : ''}`}
                         />
-                        {errors.doctorNotes && <p className="text-red-500 text-xs italic">{errors.doctorNotes}</p>}
+                        {errors.doctorsNotes && <p className="text-red-500 text-xs italic">{errors.doctorsNotes}</p>}
                     </div>
-                    <div className="flex items-center justify-between">
-                        <button
-                            type="submit"
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        >
-                            Submit
-                        </button>
-                    </div>
+
+                    <button
+                        type="submit"
+                        className="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded"
+                    >
+                        Submit Prior Authorization Request
+                    </button>
                 </form>
             </div>
         </div>

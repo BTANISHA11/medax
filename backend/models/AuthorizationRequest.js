@@ -6,10 +6,9 @@ const AuthorizationRequestSchema = new mongoose.Schema({
     insurancePlan: { type: String, required: true }, // Added field
     dateOfService: { type: Date, required: true }, // Added field
     diagnosisCode: { type: String, required: true }, // Added field
-    doctorsNotes: { type: String, required: true },
+    doctorsNotes: { type: String, required: true }, // Corrected field name
     status: { type: String, enum: ['pending', 'approved', 'denied'], default: 'pending' },
     createdAt: { type: Date, default: Date.now }
 });
 
 module.exports = mongoose.model('AuthorizationRequest', AuthorizationRequestSchema);
-
