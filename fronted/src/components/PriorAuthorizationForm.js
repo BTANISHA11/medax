@@ -19,6 +19,8 @@ const PriorAuthorizationForm = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    
+
     const validateForm = () => {
         const newErrors = {};
         if (!formData.patientId) newErrors.patientId = 'Patient ID is required.';

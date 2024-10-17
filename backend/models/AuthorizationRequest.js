@@ -12,3 +12,4 @@ const AuthorizationRequestSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('AuthorizationRequest', AuthorizationRequestSchema);
+

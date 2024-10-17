@@ -15,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB connection
-mongoose.connect('mongodb://localhost:27017/patientData', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.error('MongoDB connection error:', err));
 
@@ -56,6 +56,11 @@ app.post('/api/patients', async (req, res) => {
 app.post('/api/authorization-requests', async (req, res) => {
     const { patientId, treatment, insurancePlan, dateOfService, diagnosisCode, doctorsNotes } = req.body;
 
+    // Validate required fields
+    if (!patientId || !treatment || !insurancePlan || !dateOfService || !diagnosisCode || !doctorsNotes) {
+        return res.status(400).json({ message: 'All fields are required.' });
+    }
+
     const newRequest = new AuthorizationRequest({
         patientId,
         treatment,
@@ -72,6 +77,8 @@ app.post('/api/authorization-requests', async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
+
+
 
 
 
