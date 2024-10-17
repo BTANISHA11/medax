@@ -1,25 +1,24 @@
 import React, { useState } from 'react';
 import { submitAuthorization } from '../api/patientApi';
 import Navbar from './Navbar';
-import axios from 'axios'
 
 const PriorAuthorizationForm = () => {
     const [formData, setFormData] = useState({
-        patientId: '',
+        patientId: '', // Ensure this is a valid ObjectId
         treatment: '',
         insurancePlan: '',
         dateOfService: '',
         diagnosisCode: '',
-        doctorNotes: '',
+        doctorNotes: '', // Ensure this field is included
     });
 
     const [errors, setErrors] = useState({});
+    const [submissionError, setSubmissionError] = useState('');
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
+        setSubmissionError(''); // Clear submission error when user types
     };
-
-    
 
     const validateForm = () => {
         const newErrors = {};
@@ -28,6 +27,7 @@ const PriorAuthorizationForm = () => {
         if (!formData.insurancePlan) newErrors.insurancePlan = 'Insurance plan is required.';
         if (!formData.dateOfService) newErrors.dateOfService = 'Date of service is required.';
         if (!formData.diagnosisCode) newErrors.diagnosisCode = 'Diagnosis code is required.';
+        if (!formData.doctorNotes) newErrors.doctorNotes = 'Doctor\'s notes are required.'; // Validation for doctorsNotes
         return newErrors;
     };
 
@@ -38,8 +38,14 @@ const PriorAuthorizationForm = () => {
             setErrors(validationErrors);
             return;
         }
+
         try {
-            await submitAuthorization(formData);
+            const formattedData = {
+                ...formData,
+                dateOfService: new Date(formData.dateOfService).toISOString().split('T')[0], // Format date to YYYY-MM-DD
+            };
+
+            await submitAuthorization(formattedData);
             // Reset form or handle success
             setFormData({
                 patientId: '',
@@ -53,7 +59,7 @@ const PriorAuthorizationForm = () => {
             alert("Prior Authorization Request Submitted Successfully!");
         } catch (error) {
             console.error("Submission error:", error);
-            alert("Error submitting request. Please try again.");
+            setSubmissionError(error.response?.data?.message || "Error submitting request. Please try again.");
         }
     };
 
@@ -63,6 +69,7 @@ const PriorAuthorizationForm = () => {
             <div className="container mx-auto p-4">
                 <h2 className="text-2xl font-semibold mb-6">Prior Authorization Request</h2>
                 <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    {submissionError && <p className="text-red-500 text-xs italic">{submissionError}</p>}
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="patientId">
                             Patient ID
@@ -72,7 +79,7 @@ const PriorAuthorizationForm = () => {
                             name="patientId"
                             onChange={handleChange}
                             value={formData.patientId}
-                            placeholder="Enter Patient ID"
+                            placeholder="Enter Patient ID (must be a valid ObjectId)"
                             className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.patientId ? 'border-red-500' : ''}`}
                         />
                         {errors.patientId && <p className="text-red-500 text-xs italic">{errors.patientId}</p>}
@@ -142,8 +149,9 @@ const PriorAuthorizationForm = () => {
                             value={formData.doctorNotes}
                             placeholder="Enter Doctor's Notes"
                             rows="4"
-                            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.doctorNotes ? 'border-red-500' : ''}`}
                         />
+                        {errors.doctorNotes && <p className="text-red-500 text-xs italic">{errors.doctorNotes}</p>}
                     </div>
                     <div className="flex items-center justify-between">
                         <button
