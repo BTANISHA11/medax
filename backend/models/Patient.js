@@ -7,16 +7,16 @@ const patientSchema = new mongoose.Schema({
     },
     age: {
         type: Number,
-        required: true
+        required: false
     },
     medicalHistory: {
         type: String,
-        required: true
+        required: false
     },
     treatmentPlan: {
         type: String,
-        required: true
+        required: false
     }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Patient', patientSchema);
+module.exports = mongoose.model('Patient', patientSchema);

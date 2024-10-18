@@ -1,10 +1,8 @@
-const express = require('express');
-const router = express.Router();
 const Authorization = require('../models/authorization'); // Adjust the path if necessary
 const Patient = require('../models/patient'); // Ensure you have the Patient model
 
 // POST endpoint to submit a prior authorization request
-router.post('/', async (req, res) => {
+const addAuthorization = async (req, res) => {
     const { patientId, treatment, doctorsNotes, dateOfService } = req.body;
 
     // Validate that the patient exists
@@ -28,10 +26,10 @@ router.post('/', async (req, res) => {
         console.error('Error creating authorization:', error);
         return res.status(500).json({ message: 'Internal server error' });
     }
-});
+}
 
 // GET endpoint to fetch all authorization requests (optional, adjust based on your needs)
-router.get('/', async (req, res) => {
+const getAuthorizations = async (req, res) => {
     try {
         const authorizations = await Authorization.find().populate('patientId'); // Populate patient data if needed
         return res.status(200).json(authorizations);
@@ -39,6 +37,6 @@ router.get('/', async (req, res) => {
         console.error('Error fetching authorizations:', error);
         return res.status(500).json({ message: 'Internal server error' });
     }
-});
+}
 
-module.exports = router;
+module.exports = { addAuthorization, getAuthorizations }; // Export the functions for use in routes
