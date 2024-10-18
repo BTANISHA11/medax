@@ -2,7 +2,7 @@
 
 # Patient Health Dashboard
 
-A simple Patient Health Dashboard application built with React. This application allows users to view patient information, search for patients, and submit prior authorization requests.
+A simple Patient Health Dashboard application built with React and Node.js. This application allows users to view patient information, search for patients, and submit prior authorization requests.
 
 ## Table of Contents
 
@@ -11,6 +11,9 @@ A simple Patient Health Dashboard application built with React. This application
 - [Installation](#installation)
 - [Usage](#usage)
 - [API Endpoints](#api-endpoints)
+- [Database Schema](#database-schema)
+- [Frontend Code Structure](#frontend-code-structure)
+- [Backend Code Structure](#backend-code-structure)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -23,10 +26,12 @@ A simple Patient Health Dashboard application built with React. This application
 ## Technologies Used
 
 - **Frontend**: React, Tailwind CSS, Axios
-- **Backend**: Node.js, Express (not included in this repository)
-- **Database**: MongoDB (not included in this repository)
+- **Backend**: Node.js, Express, MongoDB
+- **Database**: MongoDB
 
 ## Installation
+
+### Frontend
 
 1. **Clone the Repository**
 
