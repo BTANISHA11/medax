@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getPatients, addPatient } from '../api/patientApi'; // Adjust this import based on your API structure
-import Navbar from './Navbar'; // Ensure you have a Navbar component
+// import Navbar from './Navbar'; // Ensure you have a Navbar component
+// import Footer from './Footer'; // Import the Footer component
 
 const PatientDashboard = () => {
     const [patients, setPatients] = useState([]);
@@ -59,7 +60,7 @@ const PatientDashboard = () => {
 
     return (
         <div>
-            <Navbar />
+            
             <div className="container mx-auto p-4">
                 {error ? (
                     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
@@ -108,7 +109,7 @@ const PatientDashboard = () => {
                                 <h2 className="text-2xl font-semibold mb-4">{selectedPatient.name}</h2>
                                 <button
                                     onClick={handleBack}
-                                    className="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded mb-4"
+                                    className="bg-gray-300 hover:bg-gray- 400 text-black font-bold py-2 px-4 rounded mb-4"
                                 >
                                     Back to Patients List
                                 </button>
@@ -121,6 +122,7 @@ const PatientDashboard = () => {
                     </>
                 )}
             </div>
+            
         </div>
     );
 };

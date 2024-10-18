@@ -29,6 +29,8 @@ export const createPatient = async (patientData) => {
 // Function to add a new patient (consolidated with createPatient)
 export const addPatient = createPatient; // Reuses createPatient function
 
+
+
 // Function to submit prior authorization requests
 export const submitAuthorization = async (authData) => {
     try {

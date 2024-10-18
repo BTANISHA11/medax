@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { submitAuthorization } from '../api/patientApi'; // Updated path if necessary
-import Navbar from './Navbar';
+// import Navbar from './Navbar';
 
 const PriorAuthorizationForm = () => {
     const [formData, setFormData] = useState({
@@ -75,7 +75,7 @@ const PriorAuthorizationForm = () => {
 
     return (
         <div>
-            <Navbar />
+            
             <div className="container mx-auto p-4">
                 <h2 className="text-2xl font-semibold mb-6">Prior Authorization Request</h2>
 
