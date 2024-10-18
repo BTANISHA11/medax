@@ -14,7 +14,7 @@ const PriorAuthorizationForm = () => {
 
     const [errors, setErrors] = useState({});
     const [submissionError, setSubmissionError] = useState('');
-    const [successMessage, setSuccessMessage] = useState(''); // State for success message
+    const [successMessage, setSuccessMessage] = useState('');
 
     // Handle form input changes
     const handleChange = (e) => {

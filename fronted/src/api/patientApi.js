@@ -32,7 +32,8 @@ export const addPatient = createPatient; // Reuses createPatient function
 // Function to submit prior authorization requests
 export const submitAuthorization = async (authData) => {
     try {
-        const response = await axios.post(AUTHORIZATION_URL, authData); // Use correct authorization URL
+        console.log('Submitting authorization with data:', authData); // Log the data being submitted
+        const response = await axios.post(AUTHORIZATION_URL, authData);
         return response.data;
     } catch (error) {
         console.error('Error submitting authorization:', error.response?.data || error.message);
