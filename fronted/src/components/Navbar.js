@@ -30,6 +30,11 @@ const Navbar = () => {
                     <Link to="/" className="text-white mr-4 hover:underline">Home</Link>
                     <Link to="/authorize" className="text-white mr-4 hover:underline">Prior Authorization</Link>
                     <Link to="/patients" className="text-white mr-4 hover:underline">Patients</Link>
+                    <Link to="/Register" className="text-white mr-4 hover:underline">Register</Link>
+                    
+                            
+                        
+                    
                     
                     {/* More Dropdown */}
                     <div className="relative" ref={dropdownRef}>

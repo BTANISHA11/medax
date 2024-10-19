@@ -5,7 +5,9 @@ import PatientDashboard from './components/PatientDashboard';
 import PriorAuthorizationForm from './components/PriorAuthorizationForm';
 import HomePage from './pages/HomePage';
 import Footer from './components/Footer'; // Import Footer
+import Login from './components/Login'
 // import Settings from './components/Settings'
+import Register from './components/Register';
 
 const App = () => {
     return (
@@ -17,6 +19,9 @@ const App = () => {
                         <Route path="/" element={<HomePage />} />
                         <Route path="/authorize" element={<PriorAuthorizationForm />} />
                         <Route path="/patients" element={<PatientDashboard />} />
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/register" element={<Register />} />
+                        {/* <Route path="/settings" element={<Settings />} /> */}
                         
                     </Routes>
                 </div>
