@@ -38,6 +38,7 @@ const loginUser  = async (req, res) => {
 
     // Validate the request body
     if (!email || !password) {
+        console.log('Validation failed:', { email, password }); // Debug log
         return res.status(400).json({ message: 'Please provide email and password' });
     }
 
@@ -45,12 +46,14 @@ const loginUser  = async (req, res) => {
         // Check if user exists
         const user = await User.findOne({ email });
         if (!user) {
+            console.log('User  not found:', email); // Debug log
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
         // Check password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
+            console.log('Password does not match for user:', email); // Debug log
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
@@ -58,7 +61,7 @@ const loginUser  = async (req, res) => {
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.status(200).json({ token });
     } catch (error) {
-        console.error(error); // Log the error
+        console.error('Server error:', error); // Log the error
         res.status(500).json({ message: 'Server error' }); // Send a server error response
     }
 };
