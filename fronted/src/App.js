@@ -6,6 +6,9 @@ import PriorAuthorizationForm from './components/PriorAuthorizationForm';
 import HomePage from './pages/HomePage';
 import Footer from './components/Footer'; // Import Footer
 import Auth from './components/AuthComponent'
+import Settings from './more/Settings';
+import Profile from './more/Profile';
+import Help from './more/Help';
 
 const App = () => {
     return (
@@ -20,6 +23,9 @@ const App = () => {
                         
                 
                         <Route path='/auth' element={<Auth/>}/>
+                        <Route path='/settings' element={<Settings/>}/>
+                        <Route path='/profile' element={<Profile/>}/>
+                        <Route path='/help' element={<Help/>}/>
                         
                     </Routes>
                 </div>

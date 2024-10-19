@@ -1,6 +1,5 @@
 const User = require('../models/User'); // Ensure the correct path to the User model
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 
 // Register new user
 const registerUser  = async (req, res) => {
@@ -24,7 +23,7 @@ const registerUser  = async (req, res) => {
         // Save the user (this will trigger the pre-save hook for hashing)
         await newUser .save();
 
-        // Create JWT
+        // Create JWT only on registration
         const token = jwt.sign({ id: newUser ._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.status(201).json({ token });
     } catch (error) {
@@ -58,9 +57,8 @@ const loginUser  = async (req, res) => {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        // Create JWT
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        res.status(200).json({ token });
+        // No JWT creation here
+        res.status(200).json({ message: 'Login successful' }); // Send a success message
     } catch (error) {
         console.error('Server error:', error); // Log the error
         res.status(500).json({ message: 'Server error' }); // Send a server error response
