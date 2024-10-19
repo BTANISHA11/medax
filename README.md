@@ -36,5 +36,10 @@ A simple Patient Health Dashboard application built with React and Node.js. This
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/yourusername/patient-health-dashboard.git
-   cd patient-health-dashboard/frontend
+   git clone https://github.com/yourusername/medax.git
+   cd medax/fronted
+   npm start
+
+   for Backend
+   cd backend
+   npm start
