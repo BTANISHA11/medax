@@ -91,33 +91,30 @@ authorizationRequests: Array of ObjectId references to AuthorizationRequest
 
 #### Frontend Code Structure
 
-frontend/
-├── public/
-├── src/
-│   ├── components/
-│   ├── api/
-│   ├── App.js
-│   └── index.js
-└── package.json
+
+- **public/**: Contains static files like `index.html`.
+- **src/**: Contains the main application code.
+  - **components/**: Contains React components.
+  - **api/**: Contains API service files for making requests.
+  - **App.js**: The main application component.
+  - **index.js**: The entry point of the React application.
+- **package.json**: Contains project metadata and dependencies.
+
+## Backend Code Structure
+
+The structure of the backend code is organized as follows:
 
 #### Backend Code Structure
 
-backend/
-├── config/
-│   └── db.js
-├── controllers/
-│   └── authsController.js
-├── middleware/
-│   └── authMiddleware.js
-├── models/
-│   ├── User.js
-│   └── Patient.js
-├── routes/
-│   ├── authRoutes.js
-│   └── patientRoutes.js
-├── .env
-├── server.js
-└── package.json
+
+- **config/**: Contains configuration files, such as database connection settings.
+- **controllers/**: Contains controller files that handle business logic for routes.
+- **middleware/**: Contains middleware functions for request handling.
+- **models/**: Contains Mongoose models for database schemas.
+- **routes/**: Contains route definitions for the API.
+- **.env**: Contains environment variables for configuration.
+- **server.js**: The main entry point for the backend application.
+- **package.json**: Contains project metadata and dependencies.
 
 #### Contributing
 Contributions are welcome! Please fork the repository and submit a pull request for any improvements or bug fixes.
