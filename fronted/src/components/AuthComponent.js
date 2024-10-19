@@ -18,27 +18,25 @@ const AuthComponent = () => {
         try {
             const data = await registerUser (formData);
             console.log('Registration successful:', data);
-            setFormData({ name: '', email: '', password: '' }); // Reset form data
-            setError(''); // Clear any previous error messages
             // Handle successful registration (e.g., redirect, show success message)
         } catch (err) {
-            const errorMessage = err.response ? err.response.data.message : 'An error occurred';
-            setError(errorMessage); // Set the error message for display
+            setError(err.message); // Set the error message for display
         }
     };
 
-    const handleLogin = async () => {
-        try {
-            const data = await loginUser ({ email: formData.email, password: formData.password });
-            console.log('Login successful:', data);
-            setFormData({ name: '', email: '', password: '' }); // Reset form data
-            setError(''); // Clear any previous error messages
-            // Handle successful login (e.g., store token, redirect)
-        } catch (err) {
-            const errorMessage = err.response ? err.response.data.message : 'An error occurred';
-            setError(errorMessage); // Set the error message for display
-        }
-    };
+   const handleLogin = async () => {
+    try {
+        const data = await loginUser ({ email: formData.email, password: formData.password });
+        console.log('Login successful:', data);
+        setFormData({ name: '', email: '', password: '' }); // Reset form data
+        setError(''); // Clear any previous error messages
+        // Handle successful login (e.g., store token, redirect)
+    } catch (err) {
+        console.error('Login error:', err); // Log the entire error object
+        const errorMessage = err.response ? err.response.data.message : 'An error occurred';
+        setError(errorMessage); // Set the error message for display
+    }
+};
 
     return (
         <div className="auth-container">
