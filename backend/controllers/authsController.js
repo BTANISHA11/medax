@@ -18,16 +18,17 @@ const registerUser  = async (req, res) => {
             return res.status(400).json({ message: 'User  already exists' });
         }
 
-        // Hash password
-        const hashedPassword = await bcrypt.hash(password, 10);
-        const newUser  = new User({ name, email, password: hashedPassword });
+        // Create new user instance
+        const newUser  = new User({ name, email, password }); // Store plain password for hashing in the model
+
+        // Save the user (this will trigger the pre-save hook for hashing)
         await newUser .save();
 
         // Create JWT
         const token = jwt.sign({ id: newUser ._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
         res.status(201).json({ token });
     } catch (error) {
-        console.error(error); // Log the error
+        console.error('Registration error:', error); // Log the error
         res.status(500).json({ message: 'Server error' }); // Send a server error response
     }
 };
@@ -50,8 +51,8 @@ const loginUser  = async (req, res) => {
             return res.status(400).json({ message: 'Invalid credentials' });
         }
 
-        // Check password
-        const isMatch = await bcrypt.compare(password, user.password);
+        // Check password using the method from the User model
+        const isMatch = await user.matchPassword(password); // Use the matchPassword method
         if (!isMatch) {
             console.log('Password does not match for user:', email); // Debug log
             return res.status(400).json({ message: 'Invalid credentials' });
