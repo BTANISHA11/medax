@@ -18,9 +18,12 @@ const AuthComponent = () => {
         try {
             const data = await registerUser (formData);
             console.log('Registration successful:', data);
+            setFormData({ name: '', email: '', password: '' }); // Reset form data
+            setError(''); // Clear any previous error messages
             // Handle successful registration (e.g., redirect, show success message)
         } catch (err) {
-            setError(err.message); // Set the error message for display
+            const errorMessage = err.response ? err.response.data.message : 'An error occurred';
+            setError(errorMessage); // Set the error message for display
         }
     };
 
@@ -28,9 +31,12 @@ const AuthComponent = () => {
         try {
             const data = await loginUser ({ email: formData.email, password: formData.password });
             console.log('Login successful:', data);
+            setFormData({ name: '', email: '', password: '' }); // Reset form data
+            setError(''); // Clear any previous error messages
             // Handle successful login (e.g., store token, redirect)
         } catch (err) {
-            setError(err.message); // Set the error message for display
+            const errorMessage = err.response ? err.response.data.message : 'An error occurred';
+            setError(errorMessage); // Set the error message for display
         }
     };
 
